@@ -16,7 +16,7 @@ namespace Invoicing
             dataGridView1.Columns.Clear();
             label4.Text = "0";
             SQLConnect con = new SQLConnect();
-            string SQL = "select 客戶, 單子, sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 in('出貨退出單', '出貨單')" +
+            string SQL = "select 客戶, 單子, sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 in('出貨退出單', '出貨單') and 刪除='0'" +
                         " group by 客戶, 單子 order by 客戶";
             DataTable dt = await con.searchDataTable(SQL, new
             {
@@ -31,13 +31,13 @@ namespace Invoicing
                     dataGridView1.AutoResizeColumns();
                 }
             }
-            SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 ='出貨退出單'";
+            SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 ='出貨退出單' and 刪除='0'";
             dt = await con.searchDataTable(SQL, new
             {
                 first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
                 second_day = dateTimePicker2.Value.ToString("yyyyMMdd")
             });
-            SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 ='出貨單'";
+            SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 ='出貨單' and 刪除='0'";
             DataTable DT = await con.searchDataTable(SQL, new
             {
                 first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),

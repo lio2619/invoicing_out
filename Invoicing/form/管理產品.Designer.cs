@@ -240,7 +240,7 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(104, 19);
             this.label8.TabIndex = 41;
-            this.label8.Text = "標準成本：";
+            this.label8.Text = "現行成本：";
             // 
             // textBox9
             // 
@@ -259,7 +259,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 19);
             this.label9.TabIndex = 43;
-            this.label9.Text = "現行成本：";
+            this.label9.Text = "標準成本：";
             // 
             // button5
             // 

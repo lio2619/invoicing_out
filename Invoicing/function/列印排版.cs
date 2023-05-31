@@ -14,8 +14,8 @@ namespace Invoicing
             {
                 e.Graphics.DrawString("", new Font("Arial", 22), Brushes.Black, new Point(20, 20));
                 e.Graphics.DrawString(bili, new Font("Arial", 22), Brushes.Black, new Point(560, 20));
-                e.Graphics.DrawString("Tel： ", new Font("Arial", 12), Brushes.Black, new Point(20, 60));
-                e.Graphics.DrawString("Fax： ", new Font("Arial", 12), Brushes.Black, new Point(250, 60));
+                e.Graphics.DrawString("", new Font("Arial", 12), Brushes.Black, new Point(20, 60));
+                e.Graphics.DrawString("", new Font("Arial", 12), Brushes.Black, new Point(250, 60));
                 e.Graphics.DrawString("頁次：" + (page + 1).ToString() + "/" + (total_page + 1).ToString(), new Font("Arial", 12), Brushes.Black, new Point(560, 60));
                 e.Graphics.DrawString("廠商名稱：" + client, new Font("Arial", 12), Brushes.Black, new Point(20, 90));
                 e.Graphics.DrawString("貨單日期：" + date, new Font("Arial", 12), Brushes.Black, new Point(560, 90));
@@ -42,8 +42,8 @@ namespace Invoicing
             {
                 e.Graphics.DrawString("", new Font("Arial", 22), Brushes.Black, new Point(20, 20));
                 e.Graphics.DrawString(bili, new Font("Arial", 22), Brushes.Black, new Point(560, 20));
-                e.Graphics.DrawString("Tel： ", new Font("Arial", 12), Brushes.Black, new Point(20, 60));
-                e.Graphics.DrawString("Fax：", new Font("Arial", 12), Brushes.Black, new Point(250, 60));
+                e.Graphics.DrawString("", new Font("Arial", 12), Brushes.Black, new Point(20, 60));
+                e.Graphics.DrawString("", new Font("Arial", 12), Brushes.Black, new Point(250, 60));
                 e.Graphics.DrawString("頁次：" + (page + 1).ToString() + "/" + (total_page + 1).ToString(), new Font("Arial", 12), Brushes.Black, new Point(560, 60));
                 e.Graphics.DrawString("廠商名稱：" + client, new Font("Arial", 12), Brushes.Black, new Point(20, 90));
                 e.Graphics.DrawString("貨單日期：" + date, new Font("Arial", 12), Brushes.Black, new Point(560, 90));
@@ -68,8 +68,8 @@ namespace Invoicing
             {
                 e.Graphics.DrawString("", new Font("Arial", 22), Brushes.Black, new Point(20, 20));
                 e.Graphics.DrawString(bili, new Font("Arial", 22), Brushes.Black, new Point(560, 20));
-                e.Graphics.DrawString("Tel： ", new Font("Arial", 12), Brushes.Black, new Point(20, 60));
-                e.Graphics.DrawString("Fax： ", new Font("Arial", 12), Brushes.Black, new Point(250, 60));
+                e.Graphics.DrawString("", new Font("Arial", 12), Brushes.Black, new Point(20, 60));
+                e.Graphics.DrawString("", new Font("Arial", 12), Brushes.Black, new Point(250, 60));
                 e.Graphics.DrawString("頁次：" + (page + 1).ToString() + "/" + (total_page + 1).ToString(), new Font("Arial", 12), Brushes.Black, new Point(560, 60));
                 e.Graphics.DrawString("客戶名稱：" + client, new Font("Arial", 12), Brushes.Black, new Point(20, 90));
                 e.Graphics.DrawString("貨單日期：" + date, new Font("Arial", 12), Brushes.Black, new Point(560, 90));
@@ -167,7 +167,7 @@ namespace Invoicing
             e.Graphics.DrawString("", new Font("Arial", 20), Brushes.Black, new Point(320, 20));
             e.Graphics.DrawString("應收帳款簡要表", new Font("Arial", 16), Brushes.Black, new Point(325, 60));
             e.Graphics.DrawString("帳款區間：" + start_date + " ~ " + end_date, new Font("Arial", 12), Brushes.Black, new Point(20, 80));
-            e.Graphics.DrawString("公司名稱：" + company, new Font("Arial", 12), Brushes.Black, new Point(20, 110));
+            e.Graphics.DrawString("客戶名稱：" + company, new Font("Arial", 12), Brushes.Black, new Point(20, 110));
             e.Graphics.DrawString("單別", new Font("Arial", 12), Brushes.Black, new Point(70, 140));
             e.Graphics.DrawString("交易日期", new Font("Arial", 12), Brushes.Black, new Point(140, 140));
             e.Graphics.DrawString("交易單號", new Font("Arial", 12), Brushes.Black, new Point(260, 140));
@@ -182,7 +182,7 @@ namespace Invoicing
         {
             StringFormat stringFormat = new StringFormat();
             stringFormat.Alignment = StringAlignment.Far;
-            int[] Mwidth = new int[] { 120, 220, 340, 620, 720 };
+            int[] Mwidth = new int[] { 120, 220, 365, 620, 720 };
             e.Graphics.DrawString(value, new Font("Arial", 12), Brushes.Black, new Point(Mwidth[j], high), stringFormat);
         }
         public void collect_money_last(System.Drawing.Printing.PrintPageEventArgs e, int row)

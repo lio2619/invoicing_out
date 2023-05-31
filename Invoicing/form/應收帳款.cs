@@ -18,7 +18,7 @@ namespace Invoicing.form
             列印排版 form = new 列印排版();
             SQLConnect con = new SQLConnect();
             string SQL = "select 客戶, 總金額, 單子, 日期, 單子編號 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 in('出貨退出單', '出貨單')" +
-                        "and 客戶=@customer order by 單子";
+                        "and 客戶=@customer and 刪除='0' order by 單子";
             DataTable DT = await con.searchDataTable(SQL, new
             {
                 first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
@@ -57,7 +57,7 @@ namespace Invoicing.form
 
             string total = "";
             SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 ='出貨退出單' " +
-                    "and 客戶=@customer";
+                    "and 客戶=@customer and 刪除='0'";
             DataTable dt = await con.searchDataTable(SQL, new
             {
                 first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
@@ -65,7 +65,7 @@ namespace Invoicing.form
                 customer = comboBox1.Text.ToString()
             });
             SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day " +
-                    "and 單子 ='出貨單' and 客戶=@customer";
+                    "and 單子 ='出貨單' and 客戶=@customer and 刪除='0'";
             DT = await con.searchDataTable(SQL, new
             {
                 first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
@@ -81,7 +81,7 @@ namespace Invoicing.form
                     else if (DT.Rows[0]["金額"].ToString() != "" && dt.Rows[0]["金額"].ToString() == "")
                         total = DT.Rows[0]["金額"].ToString();
                     else if (DT.Rows[0]["金額"].ToString() == "" && dt.Rows[0]["金額"].ToString() != "")
-                        total = dt.Rows[0]["金額"].ToString();
+                        total = "-" + dt.Rows[0]["金額"].ToString();
                 }
             }
             StringFormat stringFormat = new StringFormat();
@@ -96,7 +96,7 @@ namespace Invoicing.form
             e.Graphics.DrawString("本期總計：", new Font("Arial", 12), Brushes.Black, new Point(530, high));
             e.Graphics.DrawString(cost.ToString(), new Font("Arial", 12), Brushes.Black, new Point(720, high), stringFormat);
 
-            form.collect_money_last(e, row);
+            //form.collect_money_last(e, row);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -109,6 +109,13 @@ namespace Invoicing.form
             if (textBox1.Text.ToString() == "")
             {
                 MessageBox.Show("請輸入營業稅");
+                return;
+            }
+            decimal number;
+            bool ret = decimal.TryParse(textBox1.Text.ToString(), out number);
+            if (!ret)
+            {
+                MessageBox.Show("營業稅請輸入數值");
                 return;
             }
             printPreviewDialog1.Document = printDocument1;
@@ -124,26 +131,89 @@ namespace Invoicing.form
             printPreviewDialog1.ShowDialog();
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private async void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             SQLConnect con = new SQLConnect();
-            string SQL = "select 客戶 from 總單子_客戶 where 單子 in('出貨退出單', '出貨單') order by 客戶";
-            DataTable dt = con.Find(SQL);
+            string SQL = "select 客戶 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 in('出貨退出單', '出貨單') and 刪除='0' order by 客戶";
+            DataTable dt = await con.searchDataTable(SQL, new
+            {
+                first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
+            });
             DataView dv = dt.DefaultView;
             DataTable DT = dv.ToTable("客戶", true);
             comboBox1.Items.Clear();
             for (int i = 0; i < DT.Rows.Count; i++) comboBox1.Items.Add(DT.Rows[i]["客戶"].ToString());
         }
 
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        private async void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
             SQLConnect con = new SQLConnect();
-            string SQL = "select 客戶 from 總單子_客戶 where 單子 in('出貨退出單', '出貨單') order by 客戶";
-            DataTable dt = con.Find(SQL);
+            string SQL = "select 客戶 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 in('出貨退出單', '出貨單') and 刪除='0' order by 客戶";
+            DataTable dt = await con.searchDataTable(SQL, new
+            {
+                first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
+            });
             DataView dv = dt.DefaultView;
             DataTable DT = dv.ToTable("客戶", true);
             comboBox1.Items.Clear();
             for (int i = 0; i < DT.Rows.Count; i++) comboBox1.Items.Add(DT.Rows[i]["客戶"].ToString());
+        }
+
+        private async void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            double total = 0.0;
+            SQLConnect con = new SQLConnect();
+            string SQL = "select 單子, 日期, 單子編號, 總金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 in('出貨退出單', '出貨單')" +
+                         "and 客戶=@customer and 刪除='0' order by 單子";
+            DataTable DT = await con.searchDataTable(SQL, new
+            {
+                first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
+                customer = comboBox1.Text.ToString()
+            });
+            SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子 ='出貨退出單' " +
+                    "and 客戶=@customer and 刪除='0'";
+            DataTable dt = await con.searchDataTable(SQL, new
+            {
+                first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
+                customer = comboBox1.Text.ToString()
+            });
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                if (dt.Rows[0]["金額"].ToString() != "")
+                {
+                    total = double.Parse(dt.Rows[0]["金額"].ToString()) * -1.0;
+                }
+            }
+            SQL = "select sum(總金額) as 金額 from 總單子_客戶 where 日期 between @first_day and @second_day " +
+                    "and 單子 ='出貨單' and 客戶=@customer and 刪除='0'";
+            dt = await con.searchDataTable(SQL, new
+            {
+                first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
+                customer = comboBox1.Text.ToString()
+            });
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                if (dt.Rows[0]["金額"].ToString() != "")
+                {
+                    total += double.Parse(dt.Rows[0]["金額"].ToString());
+                }
+            }
+            label6.Text = total.ToString();
+            if (DT != null)
+            {
+                if (DT.Rows.Count > 0)
+                {
+                    dataGridView1.Columns.Clear();
+                    dataGridView1.DataSource = DT;
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                }
+            }
         }
     }
 }

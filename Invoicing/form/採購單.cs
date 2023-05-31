@@ -177,11 +177,12 @@ namespace Invoicing
                 DataTable num = con.Find(sql);
                 if (num != null && num.Rows.Count > 0)
                 {
-                    sql = "insert into 總單子_客戶 (日期, 客戶, 單子, 備註 ,總金額, 單子編號) values (@time, @store_name, '採購單'," +
-                            " @remark, '0', @number)";
+                    sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '採購單'," +
+                            " @remark, '0', @number, '0')";
                     await con.execute(sql, new
                     {
-                        time = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                         store_name = comboBox1.Text.ToString(),
                         remark = textBox1.Text.ToString(),
                         number = num.Rows[0]["編號"].ToString()
@@ -190,11 +191,12 @@ namespace Invoicing
                 }
                 else
                 {
-                    sql = "insert into 總單子_客戶 (日期, 客戶, 單子, 備註 ,總金額, 單子編號) values (@time, @store_name, '進貨退出單'," +
-                            " @remark, '0', 0)";
+                    sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '採購單'," +
+                            " @remark, '0', '0', '0')";
                     await con.execute(sql, new
                     {
-                        time = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                         store_name = comboBox1.Text.ToString(),
                         remark = textBox1.Text.ToString(),
                     });
@@ -267,7 +269,6 @@ namespace Invoicing
         private void button4_Click(object sender, EventArgs e)
         {
             讀取單子 form2 = new 讀取單子("採購單");
-            label6.Visible = true;
             label7.Visible = true;
             form2.Owner = this;
             form2.Show();
@@ -379,6 +380,20 @@ namespace Invoicing
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private async void button6_Click(object sender, EventArgs e)
+        {
+            DialogResult Result = MessageBox.Show("確定刪除單子", "詢問", MessageBoxButtons.YesNo);
+            if (Result == DialogResult.Yes)
+            {
+                SQLConnect con = new SQLConnect();
+                string SQL = "update 總單子_客戶 set 總金額='0', 刪除='1' where 單子編號=@number";
+                await con.execute(SQL, new { number = label6.Text.ToString() });
+                SQL = "delete from 整張儲存 where 單子編號=@number";
+                await con.execute(SQL, new { number = label6.Text.ToString() });
+                MessageBox.Show("刪除成功");
+            }
         }
     }
 }

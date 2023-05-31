@@ -2,7 +2,6 @@
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Invoicing
 {
@@ -28,13 +27,13 @@ namespace Invoicing
         private async void button1_Click(object sender, EventArgs e)
         {
             SQLConnect con = new SQLConnect();
-            string SQL = "select * from 總單子_客戶 where 日期 between @first_day and @second_day and 單子=@bili order by 客戶";
-            DataTable dt = await con.searchDataTable(SQL,new
-                {
-                    first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
-                    second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
-                    bili = NAME
-                });
+            string SQL = "select 單子編號 as 編號, 日期, 客戶, 單子, 總金額, 備註 from 總單子_客戶 where 日期 between @first_day and @second_day and 單子=@bili and 刪除='0' order by 客戶";
+            DataTable dt = await con.searchDataTable(SQL, new
+            {
+                first_day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                second_day = dateTimePicker2.Value.ToString("yyyyMMdd"),
+                bili = NAME
+            });
             dataGridView1.Columns.Clear();
             if (dt != null)
             {
@@ -60,8 +59,8 @@ namespace Invoicing
                     DATE = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();        //日期
                     STORE = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();       //客戶
                     BILL = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();        //單子
-                    NOTE = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();        //備註
-                    TOTAL = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();       //總金額
+                    NOTE = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();        //備註
+                    TOTAL = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();       //總金額
                 }
             }
             catch
@@ -85,13 +84,13 @@ namespace Invoicing
             {
                 SQL = "select 貨品編號, 品名, 數量, 基本單位, 單價, 金額, 備註" +
                     " from 整張儲存 where 單子編號=@number";
-                DT = await con.searchDataTable(SQL, new { number = number });
+                DT = await con.searchDataTable(SQL, new { number = number});
             }
             if (NAME == "採購單")
             {
                 SQL = "select 貨品編號, 品名, 數量, 基本單位, 備註" +
                     " from 整張儲存 where 單子編號=@number";
-                DT = await con.searchDataTable(SQL, new {number = number});
+                DT = await con.searchDataTable(SQL, new { number = number });
                 採購單 form2 = (採購單)Owner;
                 form2.dataGridView1.AutoGenerateColumns = true;
                 form2.label6.Text = number;
@@ -103,6 +102,7 @@ namespace Invoicing
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
+                form2.label6.Visible = true;
             }
             else if (NAME == "出貨退出單")
             {
@@ -119,6 +119,7 @@ namespace Invoicing
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
+                form2.label6.Visible = true;
             }
             else if (NAME == "出貨單")
             {
@@ -135,6 +136,7 @@ namespace Invoicing
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
+                form2.label6.Visible = true;
             }
             else if (NAME == "訂貨單")
             {
@@ -151,6 +153,7 @@ namespace Invoicing
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
+                form2.label6.Visible = true;
             }
             else if (NAME == "進貨退出單")
             {
@@ -167,6 +170,7 @@ namespace Invoicing
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
+                form2.label6.Visible = true;
             }
             else if (NAME == "進貨單")
             {
@@ -183,6 +187,7 @@ namespace Invoicing
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
+                form2.label6.Visible = true;
             }
             Close();
         }

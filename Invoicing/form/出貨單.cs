@@ -4,7 +4,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -87,25 +87,24 @@ namespace Invoicing
             }
             if (e.ColumnIndex == 4)     //把單價跟數量乘起來放到金額，並且把金額加起來放到label2
             {
-                double number = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[4].Value?.ToString() ?? "0");    //數量，如果沒有輸入數字就填入0
-                double cost = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "0");      //單價，如果沒有輸入數字就填入0
-                if (number <= 0 || cost <= 0)
+                try
                 {
-                    MessageBox.Show("請輸入數字", "錯誤");
-                }
-                if (temp == e.RowIndex)
-                {
+                    double number = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[4].Value?.ToString() ?? "0");    //數量，如果沒有輸入數字就填入0
+                    double cost = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "0");      //單價，如果沒有輸入數字就填入0
+                    if (number <= 0 || cost <= 0)
+                    {
+                        MessageBox.Show("請輸入數字", "錯誤");
+                    }
                     dataGridView1.Rows[e.RowIndex].Cells[5].Value = number * cost;
-                    double price = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString()) + double.Parse(label2.Text.ToString());
+                    double price = dataGridView1.Rows.Cast<DataGridViewRow>()
+                                    .Sum(r => Convert.ToDouble(r.Cells["金額"].Value));
                     label2.Text = price.ToString();
                     temp++;
                 }
-                else                    //如果有更改之前的東西，先把之前的金額減掉，再加上新的
+                catch (FormatException)
                 {
-                    double price = double.Parse(label2.Text.ToString()) - double.Parse(dataGridView1.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "0");
-                    dataGridView1.Rows[e.RowIndex].Cells[5].Value = number * cost;
-                    price += double.Parse(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
-                    label2.Text = price.ToString();
+                    MessageBox.Show("請輸入數量");
+                    return;
                 }
             }
         }
@@ -123,9 +122,10 @@ namespace Invoicing
                 DataTable dt = await con.searchDataTable(SQL, new { store_name = store_name });
                 SQL = "select 單子編號 from 總單子_客戶 where 日期=@time and 客戶=@store_name and 單子='出貨單' " +
                         "and 備註=@remark and 總金額=@total_cost";
-                DataTable dt_1 = await con.searchDataTable(SQL, 
-                    new { 
-                        time = dateTimePicker1.Value.ToString("yyyyMMdd"), 
+                DataTable dt_1 = await con.searchDataTable(SQL,
+                    new
+                    {
+                        time = dateTimePicker1.Value.ToString("yyyyMMdd"),
                         store_name = store_name,
                         remark = textBox1.Text.ToString(),
                         total_cost = label2.Text.ToString()
@@ -184,7 +184,7 @@ namespace Invoicing
             if (label6.Visible || save)
             {
                 sql = "delete from 整張儲存 where 單子編號=@number";
-                await con.execute(sql, new {number = label6.Text.ToString() });
+                await con.execute(sql, new { number = label6.Text.ToString() });
                 read_dateGridView(label6.Text.ToString());
                 sql = "update 總單子_客戶 set 總金額=@total_cost, 備註=@remark, 客戶=@customer, 日期=@time where 單子編號=@number";
                 await con.execute(sql, new
@@ -203,11 +203,12 @@ namespace Invoicing
                 DataTable num = con.Find(sql);
                 if (num != null && num.Rows.Count > 0)
                 {
-                    sql = "insert into 總單子_客戶 (日期, 客戶, 單子, 備註 ,總金額, 單子編號) values (@time, @store_name, '出貨單'," +
-                            " @remark, @total_cost, @number)";
+                    sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '出貨單'," +
+                            " @remark, @total_cost, @number, '0')";
                     await con.execute(sql, new
                     {
-                        time = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                         store_name = comboBox1.Text.ToString(),
                         remark = textBox1.Text.ToString(),
                         total_cost = label2.Text.ToString(),
@@ -217,11 +218,12 @@ namespace Invoicing
                 }
                 else
                 {
-                    sql = "insert into 總單子_客戶 (日期, 客戶, 單子, 備註 ,總金額, 單子編號) values (@time, @store_name, '出貨單'," +
-                            " @remark, @total_cost, 0)";
+                    sql = "insert into 總單子_客戶 (日期, 時間,客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '出貨單'," +
+                            " @remark, @total_cost, '0', '0')";
                     await con.execute(sql, new
                     {
-                        time = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                        time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                         store_name = comboBox1.Text.ToString(),
                         remark = textBox1.Text.ToString(),
                         total_cost = label2.Text.ToString()
@@ -237,7 +239,7 @@ namespace Invoicing
             string SQL = "select 聯絡電話一, 傳真號碼 from 客戶 where 公司全名=@store_name";
             int row = 5;
             var file = new FileInfo(file_name);
-            DataTable dt = await con.searchDataTable(SQL, new {store_name = comboBox1.Text});
+            DataTable dt = await con.searchDataTable(SQL, new { store_name = comboBox1.Text });
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             file = new FileInfo(@"../單子/" + date + "/出貨單/" + file_name.Split('(')[0] + "_" + number + ".xlsx");
 
@@ -306,7 +308,6 @@ namespace Invoicing
         private void button4_Click(object sender, EventArgs e)
         {
             讀取單子 form2 = new 讀取單子("出貨單");
-            label6.Visible = true;
             label7.Visible = true;
             form2.Owner = this;
             form2.Show();
@@ -400,8 +401,10 @@ namespace Invoicing
                 if (row_index < 0) return;
                 try
                 {
-                    label2.Text = ((double.Parse(label2.Text.ToString())) - double.Parse(dataGridView1.Rows[row_index].Cells[5].Value?.ToString() ?? "0")).ToString();
                     dgv.Rows.RemoveAt(row_index);
+                    double price = dataGridView1.Rows.Cast<DataGridViewRow>()
+                                    .Sum(r => Convert.ToDouble(r.Cells["金額"].Value));
+                    label2.Text = price.ToString();
                     temp--;
                 }
                 catch (InvalidOperationException)
@@ -429,6 +432,20 @@ namespace Invoicing
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private async void button6_Click(object sender, EventArgs e)
+        {
+            DialogResult Result = MessageBox.Show("確定刪除單子", "詢問", MessageBoxButtons.YesNo);
+            if (Result == DialogResult.Yes)
+            {
+                SQLConnect con = new SQLConnect();
+                string SQL = "update 總單子_客戶 set 總金額='0', 刪除='1' where 單子編號=@number";
+                await con.execute(SQL, new { number = label6.Text.ToString() });
+                SQL = "delete from 整張儲存 where 單子編號=@number";
+                await con.execute(SQL, new { number = label6.Text.ToString() });
+                MessageBox.Show("刪除成功");
+            }
         }
     }
 }

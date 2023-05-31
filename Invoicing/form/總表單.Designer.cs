@@ -46,9 +46,9 @@
             this.進貨退出單ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.總進貨額ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.總金額ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.應收帳款ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.外掛ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.唐詣ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.應收帳款ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,15 +109,15 @@
             // 個別資料ToolStripMenuItem1
             // 
             this.個別資料ToolStripMenuItem1.Name = "個別資料ToolStripMenuItem1";
-            this.個別資料ToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
-            this.個別資料ToolStripMenuItem1.Text = "個別資料";
+            this.個別資料ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.個別資料ToolStripMenuItem1.Text = "貨品資料";
             this.個別資料ToolStripMenuItem1.Click += new System.EventHandler(this.個別資料ToolStripMenuItem1_Click);
             // 
             // 全部資料ToolStripMenuItem1
             // 
             this.全部資料ToolStripMenuItem1.Name = "全部資料ToolStripMenuItem1";
-            this.全部資料ToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
-            this.全部資料ToolStripMenuItem1.Text = "全部資料";
+            this.全部資料ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.全部資料ToolStripMenuItem1.Text = "查詢貨品";
             this.全部資料ToolStripMenuItem1.Click += new System.EventHandler(this.全部資料ToolStripMenuItem1_Click);
             // 
             // 管理廠商ToolStripMenuItem
@@ -199,6 +199,13 @@
             this.總金額ToolStripMenuItem.Text = "總銷貨額";
             this.總金額ToolStripMenuItem.Click += new System.EventHandler(this.總金額ToolStripMenuItem_Click);
             // 
+            // 應收帳款ToolStripMenuItem
+            // 
+            this.應收帳款ToolStripMenuItem.Name = "應收帳款ToolStripMenuItem";
+            this.應收帳款ToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.應收帳款ToolStripMenuItem.Text = "應收帳款";
+            this.應收帳款ToolStripMenuItem.Click += new System.EventHandler(this.應收帳款ToolStripMenuItem_Click);
+            // 
             // 外掛ToolStripMenuItem
             // 
             this.外掛ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -213,13 +220,6 @@
             this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.唐詣ToolStripMenuItem.Text = "唐詣";
             this.唐詣ToolStripMenuItem.Click += new System.EventHandler(this.唐詣ToolStripMenuItem_Click);
-            // 
-            // 應收帳款ToolStripMenuItem
-            // 
-            this.應收帳款ToolStripMenuItem.Name = "應收帳款ToolStripMenuItem";
-            this.應收帳款ToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.應收帳款ToolStripMenuItem.Text = "應收帳款";
-            this.應收帳款ToolStripMenuItem.Click += new System.EventHandler(this.應收帳款ToolStripMenuItem_Click);
             // 
             // 進銷存
             // 

@@ -41,6 +41,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button4
@@ -75,7 +77,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("新細明體", 14F);
-            this.textBox3.Location = new System.Drawing.Point(155, 312);
+            this.textBox3.Location = new System.Drawing.Point(155, 321);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(494, 30);
             this.textBox3.TabIndex = 25;
@@ -85,7 +87,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("新細明體", 14F);
-            this.label3.Location = new System.Drawing.Point(20, 315);
+            this.label3.Location = new System.Drawing.Point(20, 324);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(104, 19);
             this.label3.TabIndex = 24;
@@ -94,7 +96,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("新細明體", 14F);
-            this.textBox2.Location = new System.Drawing.Point(155, 187);
+            this.textBox2.Location = new System.Drawing.Point(155, 215);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(494, 30);
             this.textBox2.TabIndex = 23;
@@ -103,7 +105,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("新細明體", 14F);
-            this.label2.Location = new System.Drawing.Point(20, 190);
+            this.label2.Location = new System.Drawing.Point(20, 218);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(104, 19);
             this.label2.TabIndex = 22;
@@ -112,7 +114,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("新細明體", 14F);
-            this.textBox1.Location = new System.Drawing.Point(155, 71);
+            this.textBox1.Location = new System.Drawing.Point(155, 103);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(494, 30);
             this.textBox1.TabIndex = 21;
@@ -121,7 +123,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("新細明體", 14F);
-            this.label1.Location = new System.Drawing.Point(20, 74);
+            this.label1.Location = new System.Drawing.Point(20, 106);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 19);
             this.label1.TabIndex = 20;
@@ -167,11 +169,32 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("新細明體", 14F);
+            this.label6.Location = new System.Drawing.Point(139, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 19);
+            this.label6.TabIndex = 31;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("新細明體", 14F);
+            this.label5.Location = new System.Drawing.Point(20, 34);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(104, 19);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "廠商編號：";
+            // 
             // 管理廠商
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.textBox4);
@@ -208,5 +231,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -49,6 +49,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,7 +182,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(858, 202);
+            this.button2.Location = new System.Drawing.Point(858, 191);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(109, 38);
             this.button2.TabIndex = 44;
@@ -191,7 +192,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(858, 278);
+            this.button3.Location = new System.Drawing.Point(858, 264);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(109, 38);
             this.button3.TabIndex = 45;
@@ -201,7 +202,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(858, 354);
+            this.button4.Location = new System.Drawing.Point(858, 334);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(109, 38);
             this.button4.TabIndex = 46;
@@ -231,7 +232,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(858, 421);
+            this.button5.Location = new System.Drawing.Point(858, 461);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(109, 38);
             this.button5.TabIndex = 56;
@@ -239,11 +240,22 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(858, 399);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(109, 38);
+            this.button6.TabIndex = 57;
+            this.button6.Text = "刪單";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // 出貨單
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label7);
@@ -290,5 +302,6 @@
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
     }
 }

@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
-using System.Reflection.Emit;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +20,8 @@ namespace Invoicing
         public 唐詣()
         {
             InitializeComponent();
+            label6.Visible = false;
+            label7.Visible = false;
             SQLConnect con = new SQLConnect();
             string SQL = "select 公司全名 from 客戶 order by 公司全名";
             DataTable dt = con.Find(SQL);
@@ -38,7 +40,7 @@ namespace Invoicing
         private DataTable source_column(DataTable DT)
         {
             string[] s = new string[7] { "貨品編號", "品名", "基本單位", "數量", "單價", "金額", "備註" };
-            foreach(string ss in s)
+            foreach (string ss in s)
             {
                 DataColumn column = new DataColumn();
                 column.DataType = Type.GetType("System.String");
@@ -136,11 +138,12 @@ namespace Invoicing
             DataTable num = con.Find(sql);
             if (num != null && num.Rows.Count > 0)
             {
-                sql = "insert into 總單子_客戶 (日期, 客戶, 單子, 備註 ,總金額, 單子編號) values (@time, @store_name, '出貨單'," +
-                            " @remark, @total_cost, @number)";
+                sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '出貨單'," +
+                            " @remark, @total_cost, @number, '0')";
                 await con.execute(sql, new
                 {
-                    time = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                    day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                    time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                     store_name = comboBox1.Text.ToString(),
                     remark = textBox1.Text.ToString(),
                     total_cost = label2.Text.ToString(),
@@ -150,11 +153,12 @@ namespace Invoicing
             }
             else
             {
-                sql = "insert into 總單子_客戶 (日期, 客戶, 單子, 備註 ,總金額, 單子編號) values (@time, @store_name, '出貨單'," +
-                            " @remark, @total_cost, 0)";
+                sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '出貨單'," +
+                            " @remark, @total_cost, '0', '0')";
                 await con.execute(sql, new
                 {
-                    time = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                    day = dateTimePicker1.Value.ToString("yyyyMMdd"),
+                    time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                     store_name = comboBox1.Text.ToString(),
                     remark = textBox1.Text.ToString(),
                     total_cost = label2.Text.ToString()
@@ -175,6 +179,9 @@ namespace Invoicing
             SQLConnect con = new SQLConnect();
             await con.InsertList(source);
             source.Columns.Remove("單子編號");
+            label6.Visible = true;
+            label7.Visible = true;
+            label6.Text = number;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -346,6 +353,8 @@ namespace Invoicing
                 save = false;
                 source.Rows.Clear();
                 source.Columns.Clear();
+                label6.Visible = false;
+                label7.Visible = false;
             }
         }
 
@@ -360,7 +369,9 @@ namespace Invoicing
                 if (row_index < 0) return;
                 try
                 {
-                    label2.Text = ((double.Parse(label2.Text.ToString())) - double.Parse(dataGridView1.Rows[row_index].Cells[5].Value?.ToString() ?? "0")).ToString();
+                    double price = dataGridView1.Rows.Cast<DataGridViewRow>()
+                                .Sum(r => Convert.ToDouble(r.Cells["金額"].Value));
+                    label2.Text = price.ToString();
                     dgv.Rows.RemoveAt(row_index);
                 }
                 catch (InvalidOperationException ex)

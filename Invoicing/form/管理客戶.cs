@@ -12,12 +12,33 @@ namespace Invoicing
             InitializeComponent();
         }
 
+        public async void search(string company, string number)
+        {
+            SQLConnect con = new SQLConnect();
+            string SQL = "select * from 客戶 where 公司全名=@company";
+            DataTable dt = await con.searchDataTable(SQL, new { company = company });
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    textBox1.Text = company;
+                    textBox2.Text = dt.Rows[0]["送貨地址"].ToString();
+                    textBox3.Text = dt.Rows[0]["聯絡電話一"].ToString();
+                    textBox4.Text = dt.Rows[0]["傳真號碼"].ToString();
+                    label6.Text = number;
+                }
+            }
+        }
+
         private async void button1_Click(object sender, EventArgs e)
         {
             SQLConnect con = new SQLConnect();
-            string SQL = "insert into 客戶 (公司全名, 送貨地址, 聯絡電話一, 傳真號碼) values (@company, @address, @phone, @fax)";
+            string SQL = "select (count(公司編號) + 1) as 編號 from 客戶";
+            DataTable DT = con.Find(SQL);
+            SQL = "insert into 客戶 (公司編號 ,公司全名, 送貨地址, 聯絡電話一, 傳真號碼) values (@number, @company, @address, @phone, @fax)";
             bool ret = await con.execute(SQL, new
             {
+                number = DT.Rows[0]["編號"].ToString(),
                 company = textBox1.Text,
                 address = textBox2.Text,
                 phone = textBox3.Text,
@@ -30,13 +51,14 @@ namespace Invoicing
         private async void button2_Click(object sender, EventArgs e)
         {
             SQLConnect con = new SQLConnect();
-            string SQL = "update 客戶 set 送貨地址=@address , 聯絡電話一=@phone, 傳真號碼=@fax where 公司全名=@company";
+            string SQL = "update 客戶 set 送貨地址=@address, 聯絡電話一=@phone, 傳真號碼=@fax, 公司全名=@company where 公司編號=@number";
             bool ret = await con.execute(SQL, new
             {
                 address = textBox2.Text,
                 phone = textBox3.Text,
                 fax = textBox4.Text,
-                company = textBox1.Text
+                company = textBox1.Text,
+                number = label6.Text
             });
             if (ret) MessageBox.Show("修改客戶成功", "成功");
             else MessageBox.Show("修改客戶失敗", "失敗");
@@ -47,7 +69,7 @@ namespace Invoicing
             string s = Interaction.InputBox("請輸入客戶名稱", "標題", "輸入框預設內容", -1, -1);
             SQLConnect con = new SQLConnect();
             string SQL = "select * from 客戶 where 公司全名=@company";
-            DataTable dt = await con.searchDataTable(SQL, new {company = s});
+            DataTable dt = await con.searchDataTable(SQL, new { company = s });
             if (dt != null)
             {
                 if (dt.Rows.Count > 0)

@@ -44,6 +44,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -168,7 +169,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(858, 316);
+            this.button3.Location = new System.Drawing.Point(858, 298);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(109, 38);
             this.button3.TabIndex = 51;
@@ -198,7 +199,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(858, 414);
+            this.button4.Location = new System.Drawing.Point(858, 446);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(109, 38);
             this.button4.TabIndex = 55;
@@ -206,11 +207,22 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(858, 370);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(109, 38);
+            this.button5.TabIndex = 56;
+            this.button5.Text = "刪單";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // 出貨退出單
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label7);
@@ -252,5 +264,6 @@
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }
