@@ -69,7 +69,7 @@ namespace Invoicing
                     connect.Open();
                     DataTable dtExcelSchema = connect.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
                     string SheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
-                    sql = "select F1, F8 from [" + SheetName + "A12:L] where not F1 = ''";
+                    sql = "select F1, F4, F8, F9, F10 from [" + SheetName + "A12:L] where not F1 = ''";
                     using (OleDbDataAdapter dr = new OleDbDataAdapter(sql, connect))
                     {
                         dr.Fill(DT);
@@ -84,36 +84,71 @@ namespace Invoicing
             for (int i = 0; i < DT.Rows.Count; i++)
             {
                 if (DT.Rows[i]["F1"].ToString() == "") continue;
-                sql = "select 貨品編號 as F1, 品名, 基本單位, 標準售價 from 貨品主檔 where 貨品編號='" + DT.Rows[i]["F1"].ToString() + "'";
+                sql = "select 貨品編號 as F1, 品名, 基本單位, 標準售價,標準成本 from 貨品主檔 where 貨品編號='" + DT.Rows[i]["F1"].ToString() + "'";
                 DataTable grid = con.Find(sql);
                 if (grid != null)
                 {
                     if (grid.Rows.Count > 0)
                     {
                         cost = (double.Parse(grid.Rows[0]["標準售價"].ToString()) * double.Parse(DT.Rows[i]["F8"].ToString())).ToString();
+                        /*if (!decimal.Equals((decimal.Parse(DT.Rows[i]["F10"].ToString())) / 1.05m, decimal.Parse(grid.Rows[0]["標準成本"].ToString())))
+                        {
+                            MessageBox.Show($"品名：{grid.Rows[0]["品名"]} 漲價");
+                        }*/
                     }
-                    else
+                    else if (string.IsNullOrEmpty(DT.Rows[i]["F4"].ToString()))
                     {
                         break;
                     }
+                    else
+                    {
+                        cost = "0";
+                    }
                 }
-                sql = "select 建議售價 from 建議售價 where 標準售價='" + grid.Rows[0]["標準售價"].ToString() + "'";
-                DataTable sug = con.Find(sql);
-                dataGridView1.Rows[i].Cells[0].Value = DT.Rows[i]["F1"].ToString();      //編號
-                dataGridView1.Rows[i].Cells[1].Value = grid.Rows[0]["品名"].ToString();
-                dataGridView1.Rows[i].Cells[2].Value = DT.Rows[i]["F8"].ToString();
-                dataGridView1.Rows[i].Cells[3].Value = grid.Rows[0]["基本單位"].ToString();
-                dataGridView1.Rows[i].Cells[4].Value = grid.Rows[0]["標準售價"].ToString();
-                dataGridView1.Rows[i].Cells[5].Value = cost;
-                dataGridView1.Rows[i].Cells[6].Value = sug.Rows[0]["建議售價"].ToString();
                 DataRow workRow = now_source.NewRow();
+                dataGridView1.Rows[i].Cells[0].Value = DT.Rows[i]["F1"].ToString();      //編號
                 workRow["貨品編號"] = DT.Rows[i]["F1"].ToString();
-                workRow["品名"] = grid.Rows[0]["品名"].ToString();
-                workRow["基本單位"] = grid.Rows[0]["基本單位"].ToString();
-                workRow["數量"] = DT.Rows[i]["F8"].ToString();
-                workRow["單價"] = grid.Rows[0]["標準售價"].ToString();
-                workRow["金額"] = cost;
-                workRow["備註"] = sug.Rows[0]["建議售價"].ToString();
+                if (grid.Rows.Count == 0)
+                {
+                    dataGridView1.Rows[i].Cells[1].Value = DT.Rows[i]["F4"].ToString();
+                    dataGridView1.Rows[i].Cells[2].Value = DT.Rows[i]["F8"].ToString();
+                    dataGridView1.Rows[i].Cells[3].Value = DT.Rows[i]["F9"].ToString();
+                    workRow["品名"] = DT.Rows[i]["F4"].ToString();
+                    workRow["基本單位"] = DT.Rows[i]["F9"].ToString();
+                    workRow["數量"] = DT.Rows[i]["F8"].ToString();
+                    string SQL = "insert into 貨品主檔 (貨品編號, 品名, 基本單位) values(@store," +
+                        " @name, @unit)";
+                    con.execute(SQL, new
+                    {
+                        store = DT.Rows[i]["F1"].ToString(),
+                        name = DT.Rows[i]["F4"].ToString(),
+                        unit = DT.Rows[i]["F9"].ToString()
+                    });
+                }
+                else
+                {
+                    sql = "select 建議售價 from 建議售價 where 標準售價='" + grid.Rows[0]["標準售價"].ToString() + "'";
+                    DataTable sug = con.Find(sql);
+                    dataGridView1.Rows[i].Cells[1].Value = grid.Rows[0]["品名"].ToString();
+                    dataGridView1.Rows[i].Cells[2].Value = DT.Rows[i]["F8"].ToString();
+                    dataGridView1.Rows[i].Cells[3].Value = grid.Rows[0]["基本單位"].ToString();
+                    dataGridView1.Rows[i].Cells[4].Value = grid.Rows[0]["標準售價"].ToString();
+                    dataGridView1.Rows[i].Cells[5].Value = cost;
+                    try
+                    {
+                        dataGridView1.Rows[i].Cells[6].Value = sug.Rows[0]["建議售價"].ToString();
+                        workRow["備註"] = sug.Rows[0]["建議售價"].ToString();
+                    }
+                    catch
+                    {
+                        MessageBox.Show($"此單價：{grid.Rows[0]["標準售價"]}沒有建議售價");
+                    }
+                    workRow["品名"] = grid.Rows[0]["品名"].ToString();
+                    workRow["基本單位"] = grid.Rows[0]["基本單位"].ToString();
+                    workRow["數量"] = DT.Rows[i]["F8"].ToString();
+                    workRow["單價"] = grid.Rows[0]["標準售價"].ToString();
+                    workRow["金額"] = cost;
+                }
                 now_source.Rows.Add(workRow);
                 total += double.Parse(cost);
             }
@@ -384,6 +419,10 @@ namespace Invoicing
                     MessageBox.Show("沒有東西可以刪除");
                     return;
                 }
+                catch (ArgumentException ex)
+                {
+                    return;
+                }
             }
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -394,6 +433,32 @@ namespace Invoicing
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)     //把單價跟數量乘起來放到金額，並且把金額加起來放到label2
+            {
+                try
+                {
+                    double number = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[4].Value?.ToString() ?? "0");    //數量，如果沒有輸入數字就填入0
+                    double cost = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "0");      //單價，如果沒有輸入數字就填入0
+                    if (number <= 0 || cost <= 0)
+                    {
+                        MessageBox.Show("請輸入數字", "錯誤");
+                    }
+                    double a = double.Parse(dataGridView1.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "0");
+                    dataGridView1.Rows[e.RowIndex].Cells[5].Value = number * cost;
+                    double originPrice = double.Parse(label2.Text);
+                    double price = number * cost + originPrice - a;
+                    label2.Text = price.ToString();
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("請輸入數量");
+                    return;
+                }
+            }
         }
     }
 }

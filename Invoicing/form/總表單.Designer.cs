@@ -86,14 +86,14 @@
             // 個別資料ToolStripMenuItem
             // 
             this.個別資料ToolStripMenuItem.Name = "個別資料ToolStripMenuItem";
-            this.個別資料ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.個別資料ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.個別資料ToolStripMenuItem.Text = "個別資料";
             this.個別資料ToolStripMenuItem.Click += new System.EventHandler(this.個別資料ToolStripMenuItem_Click);
             // 
             // 全部資料ToolStripMenuItem
             // 
             this.全部資料ToolStripMenuItem.Name = "全部資料ToolStripMenuItem";
-            this.全部資料ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.全部資料ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.全部資料ToolStripMenuItem.Text = "全部資料";
             this.全部資料ToolStripMenuItem.Click += new System.EventHandler(this.全部資料ToolStripMenuItem_Click);
             // 
@@ -132,14 +132,14 @@
             // 個別資料ToolStripMenuItem2
             // 
             this.個別資料ToolStripMenuItem2.Name = "個別資料ToolStripMenuItem2";
-            this.個別資料ToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.個別資料ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.個別資料ToolStripMenuItem2.Text = "個別資料";
             this.個別資料ToolStripMenuItem2.Click += new System.EventHandler(this.個別資料ToolStripMenuItem2_Click);
             // 
             // 全部資料ToolStripMenuItem2
             // 
             this.全部資料ToolStripMenuItem2.Name = "全部資料ToolStripMenuItem2";
-            this.全部資料ToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
+            this.全部資料ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.全部資料ToolStripMenuItem2.Text = "全部資料";
             this.全部資料ToolStripMenuItem2.Click += new System.EventHandler(this.全部資料ToolStripMenuItem2_Click);
             // 
@@ -217,7 +217,7 @@
             // 唐詣ToolStripMenuItem
             // 
             this.唐詣ToolStripMenuItem.Name = "唐詣ToolStripMenuItem";
-            this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.唐詣ToolStripMenuItem.Text = "唐詣";
             this.唐詣ToolStripMenuItem.Click += new System.EventHandler(this.唐詣ToolStripMenuItem_Click);
             // 
