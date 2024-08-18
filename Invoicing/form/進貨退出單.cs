@@ -336,6 +336,11 @@ namespace Invoicing
             DT.Columns.Add("備註", typeof(string));
             dataGridView1.DataSource = DT;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            // 禁用所有欄位的排序
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
             dataGridView1.AutoGenerateColumns = false;
         }
         private void addbutton()

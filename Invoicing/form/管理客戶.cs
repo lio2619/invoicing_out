@@ -86,12 +86,17 @@ namespace Invoicing
 
         private async void button4_Click(object sender, EventArgs e)
         {
-            string s = Interaction.InputBox("請輸入客戶名稱", "標題", "輸入框預設內容", -1, -1);
-            SQLConnect con = new SQLConnect();
-            string SQL = "delete from 客戶 where 公司全名=@company";
-            bool ret = await con.execute(SQL, new { company = s });
-            if (ret) MessageBox.Show("刪除客戶成功", "成功");
-            else MessageBox.Show("刪除客戶失敗", "錯誤");
+            //string s = Interaction.InputBox("請輸入客戶名稱", "標題", "輸入框預設內容", -1, -1);
+            string companyName = textBox1.Text;
+            DialogResult result = MessageBox.Show($"確定要刪除{companyName}嗎？", "確認", MessageBoxButtons.YesNo);
+            if(result == DialogResult.Yes)
+            {
+                SQLConnect con = new SQLConnect();
+                string SQL = "delete from 客戶 where 公司全名=@company";
+                bool ret = await con.execute(SQL, new { company = companyName });
+                if (ret) MessageBox.Show("刪除客戶成功", "成功");
+                else MessageBox.Show("刪除客戶失敗", "錯誤");
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)

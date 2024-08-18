@@ -1,5 +1,6 @@
 ﻿using Invoicing.form;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Invoicing
@@ -249,6 +250,97 @@ namespace Invoicing
             }
             form2.MdiParent = this;
             form2.Show();
+        }
+
+        private void 備份ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 取得當前目錄的上一層目錄
+            string parentDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).FullName;
+
+            // 指定要查找的檔案名稱
+            string targetFileName = "Data.mdb";
+
+            // 在上一層目錄中查找檔案
+            string targetFilePath = Path.Combine(parentDirectory, targetFileName);
+
+            if (!File.Exists(targetFilePath))
+            {
+                // 如果檔案不存在，讓使用者選擇檔案
+                Console.WriteLine("檔案不存在，請選擇檔案。");
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        targetFilePath = openFileDialog.FileName;
+                    }
+                }
+            }
+
+            // 讓使用者選擇目標資料夾
+            string targetFolderPath = string.Empty;
+            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+            {
+                folderBrowserDialog.Description = "選擇要將檔案複製到的資料夾";
+
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                {
+                    targetFolderPath = folderBrowserDialog.SelectedPath;
+                }
+            }
+
+            // 複製檔案到目標資料夾
+            string destinationFilePath = Path.Combine(targetFolderPath, targetFileName);
+            try
+            {
+                File.Copy(targetFilePath, destinationFilePath, true); // true 參數表示如果檔案已存在則覆蓋
+                MessageBox.Show("檔案備份成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"檔案備份失敗：{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void 還原ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // 創建一個檔案對話框讓使用者選擇要複製的檔案
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "選擇要複製的檔案";
+                openFileDialog.Filter = "所有檔案 (*.*)|*.*";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // 取得選擇的檔案路徑
+                    string sourceFilePath = openFileDialog.FileName;
+
+                    // 讓使用者選擇目標資料夾
+                    using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog())
+                    {
+                        folderBrowserDialog.Description = "選擇複製檔案的資料夾";
+
+                        if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            // 取得目標資料夾路徑
+                            string targetFolderPath = folderBrowserDialog.SelectedPath;
+
+                            // 確定目標檔案的完整路徑
+                            string targetFilePath = Path.Combine(targetFolderPath, Path.GetFileName(sourceFilePath));
+
+                            try
+                            {
+                                // 複製檔案到目標資料夾
+                                File.Copy(sourceFilePath, targetFilePath, true);
+                                MessageBox.Show("檔案複製成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"檔案複製失敗：{ex.Message}", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -49,6 +49,9 @@
             this.應收帳款ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.外掛ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.唐詣ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.備份還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.備份ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +70,8 @@
             this.總進貨額ToolStripMenuItem,
             this.總金額ToolStripMenuItem,
             this.應收帳款ToolStripMenuItem,
-            this.外掛ToolStripMenuItem});
+            this.外掛ToolStripMenuItem,
+            this.備份還原ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
@@ -86,14 +90,14 @@
             // 個別資料ToolStripMenuItem
             // 
             this.個別資料ToolStripMenuItem.Name = "個別資料ToolStripMenuItem";
-            this.個別資料ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.個別資料ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.個別資料ToolStripMenuItem.Text = "個別資料";
             this.個別資料ToolStripMenuItem.Click += new System.EventHandler(this.個別資料ToolStripMenuItem_Click);
             // 
             // 全部資料ToolStripMenuItem
             // 
             this.全部資料ToolStripMenuItem.Name = "全部資料ToolStripMenuItem";
-            this.全部資料ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.全部資料ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.全部資料ToolStripMenuItem.Text = "全部資料";
             this.全部資料ToolStripMenuItem.Click += new System.EventHandler(this.全部資料ToolStripMenuItem_Click);
             // 
@@ -109,14 +113,14 @@
             // 個別資料ToolStripMenuItem1
             // 
             this.個別資料ToolStripMenuItem1.Name = "個別資料ToolStripMenuItem1";
-            this.個別資料ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.個別資料ToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.個別資料ToolStripMenuItem1.Text = "貨品資料";
             this.個別資料ToolStripMenuItem1.Click += new System.EventHandler(this.個別資料ToolStripMenuItem1_Click);
             // 
             // 全部資料ToolStripMenuItem1
             // 
             this.全部資料ToolStripMenuItem1.Name = "全部資料ToolStripMenuItem1";
-            this.全部資料ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.全部資料ToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.全部資料ToolStripMenuItem1.Text = "查詢貨品";
             this.全部資料ToolStripMenuItem1.Click += new System.EventHandler(this.全部資料ToolStripMenuItem1_Click);
             // 
@@ -132,14 +136,14 @@
             // 個別資料ToolStripMenuItem2
             // 
             this.個別資料ToolStripMenuItem2.Name = "個別資料ToolStripMenuItem2";
-            this.個別資料ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.個別資料ToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
             this.個別資料ToolStripMenuItem2.Text = "個別資料";
             this.個別資料ToolStripMenuItem2.Click += new System.EventHandler(this.個別資料ToolStripMenuItem2_Click);
             // 
             // 全部資料ToolStripMenuItem2
             // 
             this.全部資料ToolStripMenuItem2.Name = "全部資料ToolStripMenuItem2";
-            this.全部資料ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.全部資料ToolStripMenuItem2.Size = new System.Drawing.Size(122, 22);
             this.全部資料ToolStripMenuItem2.Text = "全部資料";
             this.全部資料ToolStripMenuItem2.Click += new System.EventHandler(this.全部資料ToolStripMenuItem2_Click);
             // 
@@ -217,9 +221,32 @@
             // 唐詣ToolStripMenuItem
             // 
             this.唐詣ToolStripMenuItem.Name = "唐詣ToolStripMenuItem";
-            this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.唐詣ToolStripMenuItem.Text = "唐詣";
             this.唐詣ToolStripMenuItem.Click += new System.EventHandler(this.唐詣ToolStripMenuItem_Click);
+            // 
+            // 備份還原ToolStripMenuItem
+            // 
+            this.備份還原ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.備份ToolStripMenuItem,
+            this.還原ToolStripMenuItem});
+            this.備份還原ToolStripMenuItem.Name = "備份還原ToolStripMenuItem";
+            this.備份還原ToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.備份還原ToolStripMenuItem.Text = "備份/還原";
+            // 
+            // 備份ToolStripMenuItem
+            // 
+            this.備份ToolStripMenuItem.Name = "備份ToolStripMenuItem";
+            this.備份ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.備份ToolStripMenuItem.Text = "備份";
+            this.備份ToolStripMenuItem.Click += new System.EventHandler(this.備份ToolStripMenuItem_Click);
+            // 
+            // 還原ToolStripMenuItem
+            // 
+            this.還原ToolStripMenuItem.Name = "還原ToolStripMenuItem";
+            this.還原ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.還原ToolStripMenuItem.Text = "還原";
+            this.還原ToolStripMenuItem.Click += new System.EventHandler(this.還原ToolStripMenuItem_Click);
             // 
             // 進銷存
             // 
@@ -262,6 +289,9 @@
         private System.Windows.Forms.ToolStripMenuItem 個別資料ToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem 全部資料ToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem 應收帳款ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 備份還原ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 備份ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 還原ToolStripMenuItem;
     }
 }
 

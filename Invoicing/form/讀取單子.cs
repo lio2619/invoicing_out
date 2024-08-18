@@ -99,6 +99,11 @@ namespace Invoicing
                 form2.textBox1.Text = NOTE;
                 form2.dataGridView1.Columns.Clear();
                 form2.dataGridView1.DataSource = DT;
+                // 禁用所有欄位的排序
+                foreach (DataGridViewColumn column in form2.dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
@@ -116,6 +121,11 @@ namespace Invoicing
                 form2.label2.Text = TOTAL;
                 form2.dataGridView1.Columns.Clear();
                 form2.dataGridView1.DataSource = DT;
+                // 禁用所有欄位的排序
+                foreach (DataGridViewColumn column in form2.dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
@@ -133,6 +143,11 @@ namespace Invoicing
                 form2.label2.Text = TOTAL;
                 form2.dataGridView1.Columns.Clear();
                 form2.dataGridView1.DataSource = DT;
+                // 禁用所有欄位的排序
+                foreach (DataGridViewColumn column in form2.dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
@@ -150,6 +165,11 @@ namespace Invoicing
                 form2.label2.Text = TOTAL;
                 form2.dataGridView1.Columns.Clear();
                 form2.dataGridView1.DataSource = DT;
+                // 禁用所有欄位的排序
+                foreach (DataGridViewColumn column in form2.dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
@@ -167,6 +187,11 @@ namespace Invoicing
                 form2.label2.Text = TOTAL;
                 form2.dataGridView1.Columns.Clear();
                 form2.dataGridView1.DataSource = DT;
+                // 禁用所有欄位的排序
+                foreach (DataGridViewColumn column in form2.dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
@@ -184,6 +209,11 @@ namespace Invoicing
                 form2.label2.Text = TOTAL;
                 form2.dataGridView1.Columns.Clear();
                 form2.dataGridView1.DataSource = DT;
+                // 禁用所有欄位的排序
+                foreach (DataGridViewColumn column in form2.dataGridView1.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
                 form2.dataGridView1.AutoResizeColumns();
                 form2.dataGridView1.Columns.Add(btn);
                 form2.dataGridView1.AutoGenerateColumns = false;
