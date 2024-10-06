@@ -52,6 +52,7 @@
             this.備份還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.備份ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.金大ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -213,7 +214,8 @@
             // 外掛ToolStripMenuItem
             // 
             this.外掛ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.唐詣ToolStripMenuItem});
+            this.唐詣ToolStripMenuItem,
+            this.金大ToolStripMenuItem});
             this.外掛ToolStripMenuItem.Name = "外掛ToolStripMenuItem";
             this.外掛ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.外掛ToolStripMenuItem.Text = "外掛";
@@ -221,7 +223,7 @@
             // 唐詣ToolStripMenuItem
             // 
             this.唐詣ToolStripMenuItem.Name = "唐詣ToolStripMenuItem";
-            this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.唐詣ToolStripMenuItem.Text = "唐詣";
             this.唐詣ToolStripMenuItem.Click += new System.EventHandler(this.唐詣ToolStripMenuItem_Click);
             // 
@@ -247,6 +249,13 @@
             this.還原ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.還原ToolStripMenuItem.Text = "還原";
             this.還原ToolStripMenuItem.Click += new System.EventHandler(this.還原ToolStripMenuItem_Click);
+            // 
+            // 金大ToolStripMenuItem
+            // 
+            this.金大ToolStripMenuItem.Name = "金大ToolStripMenuItem";
+            this.金大ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.金大ToolStripMenuItem.Text = "金大";
+            this.金大ToolStripMenuItem.Click += new System.EventHandler(this.金大ToolStripMenuItem_Click);
             // 
             // 進銷存
             // 
@@ -292,6 +301,7 @@
         private System.Windows.Forms.ToolStripMenuItem 備份還原ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 備份ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 還原ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 金大ToolStripMenuItem;
     }
 }
 

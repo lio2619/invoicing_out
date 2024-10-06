@@ -108,6 +108,12 @@
     <Compile Include="form\所有廠商.Designer.cs">
       <DependentUpon>所有廠商.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\金大.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\金大.Designer.cs">
+      <DependentUpon>金大.cs</DependentUpon>
+    </Compile>
     <Compile Include="function\SQLConnect.cs" />
     <Compile Include="form\出貨單.cs">
       <SubType>Form</SubType>
@@ -220,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\所有廠商.resx">
       <DependentUpon>所有廠商.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\金大.resx">
+      <DependentUpon>金大.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -199,6 +199,9 @@ namespace Invoicing
             }
             else if (NAME == "進貨單")
             {
+                SQL = "select 貨品編號, 品名, 數量, 基本單位, 單價, 金額, 備註" +
+                    " from 整張儲存 where 單子編號=@number order by 品名 asc";
+                DT = await con.searchDataTable(SQL, new { number = number });
                 進貨單 form2 = (進貨單)Owner;
                 form2.temp = DT.Rows.Count;
                 form2.dataGridView1.AutoGenerateColumns = true;
