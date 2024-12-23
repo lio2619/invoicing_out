@@ -49,10 +49,11 @@
             this.應收帳款ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.外掛ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.唐詣ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.金大ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.備份還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.備份ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.金大ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.關貿ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -215,7 +216,8 @@
             // 
             this.外掛ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.唐詣ToolStripMenuItem,
-            this.金大ToolStripMenuItem});
+            this.金大ToolStripMenuItem,
+            this.關貿ToolStripMenuItem});
             this.外掛ToolStripMenuItem.Name = "外掛ToolStripMenuItem";
             this.外掛ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.外掛ToolStripMenuItem.Text = "外掛";
@@ -226,6 +228,13 @@
             this.唐詣ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.唐詣ToolStripMenuItem.Text = "唐詣";
             this.唐詣ToolStripMenuItem.Click += new System.EventHandler(this.唐詣ToolStripMenuItem_Click);
+            // 
+            // 金大ToolStripMenuItem
+            // 
+            this.金大ToolStripMenuItem.Name = "金大ToolStripMenuItem";
+            this.金大ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.金大ToolStripMenuItem.Text = "金大";
+            this.金大ToolStripMenuItem.Click += new System.EventHandler(this.金大ToolStripMenuItem_Click);
             // 
             // 備份還原ToolStripMenuItem
             // 
@@ -239,23 +248,23 @@
             // 備份ToolStripMenuItem
             // 
             this.備份ToolStripMenuItem.Name = "備份ToolStripMenuItem";
-            this.備份ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.備份ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.備份ToolStripMenuItem.Text = "備份";
             this.備份ToolStripMenuItem.Click += new System.EventHandler(this.備份ToolStripMenuItem_Click);
             // 
             // 還原ToolStripMenuItem
             // 
             this.還原ToolStripMenuItem.Name = "還原ToolStripMenuItem";
-            this.還原ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.還原ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.還原ToolStripMenuItem.Text = "還原";
             this.還原ToolStripMenuItem.Click += new System.EventHandler(this.還原ToolStripMenuItem_Click);
             // 
-            // 金大ToolStripMenuItem
+            // 關貿ToolStripMenuItem
             // 
-            this.金大ToolStripMenuItem.Name = "金大ToolStripMenuItem";
-            this.金大ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.金大ToolStripMenuItem.Text = "金大";
-            this.金大ToolStripMenuItem.Click += new System.EventHandler(this.金大ToolStripMenuItem_Click);
+            this.關貿ToolStripMenuItem.Name = "關貿ToolStripMenuItem";
+            this.關貿ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.關貿ToolStripMenuItem.Text = "關貿";
+            this.關貿ToolStripMenuItem.Click += new System.EventHandler(this.關貿ToolStripMenuItem_Click);
             // 
             // 進銷存
             // 
@@ -302,6 +311,7 @@
         private System.Windows.Forms.ToolStripMenuItem 備份ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 還原ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 金大ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 關貿ToolStripMenuItem;
     }
 }
 

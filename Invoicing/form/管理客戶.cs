@@ -51,14 +51,14 @@ namespace Invoicing
         private async void button2_Click(object sender, EventArgs e)
         {
             SQLConnect con = new SQLConnect();
-            string SQL = "update 客戶 set 送貨地址=@address, 聯絡電話一=@phone, 傳真號碼=@fax, 公司全名=@company where 公司編號=@number";
+            string SQL = "update 客戶 set 送貨地址=@address, 聯絡電話一=@phone, 傳真號碼=@fax, 公司全名=@company where 公司全名=@number";
             bool ret = await con.execute(SQL, new
             {
                 address = textBox2.Text,
                 phone = textBox3.Text,
                 fax = textBox4.Text,
                 company = textBox1.Text,
-                number = label6.Text
+                number = textBox1.Text
             });
             if (ret) MessageBox.Show("修改客戶成功", "成功");
             else MessageBox.Show("修改客戶失敗", "失敗");
