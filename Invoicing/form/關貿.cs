@@ -150,8 +150,8 @@ namespace Invoicing.form
 
                 DBDT.Rows.Add(newRow);
             }
-            //SavePdfFile(storeName, poNumber, totalCost.ToString(), num.Rows[0]["編號"].ToString());
-            //SavePdfFileDetail(DBDT);
+            SavePdfFile(storeName, poNumber, totalCost.ToString(), num.Rows[0]["編號"].ToString());
+            SavePdfFileDetail(DBDT);
 
             return num.Rows[0]["編號"].ToString();
         }
