@@ -120,7 +120,7 @@ namespace Invoicing
             {
                 string SQL = "select 聯絡電話一, 傳真號碼, 送貨地址 from 客戶 where 公司全名=@store_name";
                 DataTable dt = await con.searchDataTable(SQL, new { store_name = store_name });
-                SQL = "select 單子編號 from 總單子_客戶 where 日期=@time and 客戶=@store_name and 單子='出貨單' " +
+                SQL = "select 單子編號, 關貿 from 總單子_客戶 where 日期=@time and 客戶=@store_name and 單子='出貨單' " +
                         "and 備註=@remark and 總金額=@total_cost";
                 DataTable dt_1 = await con.searchDataTable(SQL,
                     new
@@ -131,13 +131,23 @@ namespace Invoicing
                         total_cost = label2.Text.ToString()
                     });
                 int number = int.Parse(dt_1.Rows[0]["單子編號"].ToString());
+                var obj = dt_1.Rows[0]["關貿"];
                 if (dt != null)
                 {
                     if (dt.Rows.Count > 0)
                     {
-                        form.print_header_setting(e, "出貨單", store_name, dateTimePicker1.Text.ToString(), dateTimePicker1.Value.ToString("yyyyMMdd") + number.ToString("000"),
+                        if (obj != null && obj.ToString() == "1")
+                        {
+                            form.print_header_setting(e, "出貨單", store_name, "    年   月   日", dateTimePicker1.Value.ToString("yyyyMMdd") + number.ToString("000"),
                                         dt.Rows[0]["聯絡電話一"].ToString(), dt.Rows[0]["傳真號碼"].ToString(),
                                         dt.Rows[0]["送貨地址"].ToString(), page, print_page);
+                        }
+                        else
+                        {
+                            form.print_header_setting(e, "出貨單", store_name, dateTimePicker1.Text.ToString(), dateTimePicker1.Value.ToString("yyyyMMdd") + number.ToString("000"),
+                                        dt.Rows[0]["聯絡電話一"].ToString(), dt.Rows[0]["傳真號碼"].ToString(),
+                                        dt.Rows[0]["送貨地址"].ToString(), page, print_page);
+                        }
                     }
                     else MessageBox.Show("請輸入正確的客戶名稱", "錯誤");
                 }

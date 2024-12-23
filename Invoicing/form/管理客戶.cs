@@ -7,6 +7,7 @@ namespace Invoicing
 {
     public partial class 管理客戶 : Form
     {
+        private string oldCompanyName = string.Empty;
         public 管理客戶()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace Invoicing
                     textBox3.Text = dt.Rows[0]["聯絡電話一"].ToString();
                     textBox4.Text = dt.Rows[0]["傳真號碼"].ToString();
                     label6.Text = number;
+                    oldCompanyName = company;
                 }
             }
         }
@@ -44,7 +46,11 @@ namespace Invoicing
                 phone = textBox3.Text,
                 fax = textBox4.Text
             });
-            if (ret) MessageBox.Show("加入客戶成功", "成功");
+            if (ret)
+            {
+                MessageBox.Show("加入客戶成功", "成功");
+                oldCompanyName = textBox1.Text;
+            }
             else MessageBox.Show("加入客戶失敗", "失敗");
         }
 
@@ -58,7 +64,7 @@ namespace Invoicing
                 phone = textBox3.Text,
                 fax = textBox4.Text,
                 company = textBox1.Text,
-                number = textBox1.Text
+                number = oldCompanyName
             });
             if (ret) MessageBox.Show("修改客戶成功", "成功");
             else MessageBox.Show("修改客戶失敗", "失敗");
@@ -78,6 +84,7 @@ namespace Invoicing
                     textBox2.Text = dt.Rows[0]["送貨地址"].ToString();
                     textBox3.Text = dt.Rows[0]["聯絡電話一"].ToString();
                     textBox4.Text = dt.Rows[0]["傳真號碼"].ToString();
+                    oldCompanyName = s;
                 }
                 else MessageBox.Show("請輸入正確的客戶名稱", "錯誤");
             }

@@ -31,7 +31,7 @@ namespace Invoicing.form
                 {
                     (43, 125, true),  //國碼
                     (331, 345, false), //數量
-                    (415, 436, false)  //單價
+                    (410, 436, false)  //單價
                 };
                 double minY = 232;
                 double maxY = 693;
@@ -147,12 +147,11 @@ namespace Invoicing.form
                     newRow["金額"] = cost.ToString();
                     newRow["備註"] = string.Empty;
                 }
-                
 
                 DBDT.Rows.Add(newRow);
             }
-            SavePdfFile(storeName, poNumber, totalCost.ToString(), num.Rows[0]["編號"].ToString());
-            SavePdfFileDetail(DBDT);
+            //SavePdfFile(storeName, poNumber, totalCost.ToString(), num.Rows[0]["編號"].ToString());
+            //SavePdfFileDetail(DBDT);
 
             return num.Rows[0]["編號"].ToString();
         }
@@ -160,8 +159,8 @@ namespace Invoicing.form
         private void SavePdfFile(string storeName, string remark, string totalCost, string num)
         {
             SQLConnect con = new SQLConnect();
-            string sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除) values (@day, @time, @store_name, '出貨單'," +
-                            " @remark, @total_cost, @number, '0')";
+            string sql = "insert into 總單子_客戶 (日期, 時間, 客戶, 單子, 備註 ,總金額, 單子編號, 刪除, 關貿) values (@day, @time, @store_name, '出貨單'," +
+                            " @remark, @total_cost, @number, '0', '1')";
             _ = con.execute(sql, new
             {
                 day = DateTime.Now.ToString("yyyyMMdd"),
