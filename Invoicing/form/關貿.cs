@@ -27,11 +27,11 @@ namespace Invoicing.form
             dialog.Filter = "pdf file (*.pdf)|*.pdf";
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                List<(double MinX, double MaxX, bool CheckPattern)> xRanges = new List<(double, double, bool)>
+                List<(double MinX, double MaxX, int CheckPattern)> xRanges = new List<(double, double, int)>
                 {
-                    (43, 125, true),  //國碼
-                    (331, 345, false), //數量
-                    (410, 436, false)  //單價
+                    (43, 125, 0),  //國碼
+                    (331, 345, 1), //數量
+                    (407, 436, 2)  //單價
                 };
                 double minY = 232;
                 double maxY = 693;
@@ -44,7 +44,8 @@ namespace Invoicing.form
                 string poNumber = string.Empty;
                 List<string> ans = new List<string>();
                 StringBuilder text = new StringBuilder();
-                Regex regex = new Regex(@"^4\d{12}$");
+                Regex regex = new Regex(@"^\d{13}$");
+                Regex regexNumber = new Regex(@"^\d+(\.\d+)?$");
 
                 // 打開 PDF 文件
                 using (PdfDocument document = PdfDocument.Open(file_path))
@@ -61,7 +62,7 @@ namespace Invoicing.form
                                     xRanges.Any(range =>
                                         word.BoundingBox.Left >= range.MinX && word.BoundingBox.Right <= range.MaxX && // 篩選 X 軸範圍
                                         word.BoundingBox.Top >= minY && word.BoundingBox.Bottom <= maxY && // 篩選 Y 軸範圍
-                                        (!range.CheckPattern || regex.IsMatch(word.Text)))) // 檢查是否符合數字模式（如果需要）
+                                        (range.CheckPattern > 0 || regex.IsMatch(word.Text)) && (range.CheckPattern < 2 || regexNumber.IsMatch(word.Text)))) // 檢查是否符合數字模式（如果需要）
                                 .Select(word => word.Text);
                         if (words[4].Text == words[6].Text)
                         {
