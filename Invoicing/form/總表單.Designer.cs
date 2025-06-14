@@ -50,10 +50,11 @@
             this.外掛ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.唐詣ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.金大ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.關貿ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.備份還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.備份ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.還原ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.關貿ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.金大新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -217,6 +218,7 @@
             this.外掛ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.唐詣ToolStripMenuItem,
             this.金大ToolStripMenuItem,
+            this.金大新ToolStripMenuItem,
             this.關貿ToolStripMenuItem});
             this.外掛ToolStripMenuItem.Name = "外掛ToolStripMenuItem";
             this.外掛ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
@@ -235,6 +237,13 @@
             this.金大ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.金大ToolStripMenuItem.Text = "金大";
             this.金大ToolStripMenuItem.Click += new System.EventHandler(this.金大ToolStripMenuItem_Click);
+            // 
+            // 關貿ToolStripMenuItem
+            // 
+            this.關貿ToolStripMenuItem.Name = "關貿ToolStripMenuItem";
+            this.關貿ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.關貿ToolStripMenuItem.Text = "關貿";
+            this.關貿ToolStripMenuItem.Click += new System.EventHandler(this.關貿ToolStripMenuItem_Click);
             // 
             // 備份還原ToolStripMenuItem
             // 
@@ -259,12 +268,12 @@
             this.還原ToolStripMenuItem.Text = "還原";
             this.還原ToolStripMenuItem.Click += new System.EventHandler(this.還原ToolStripMenuItem_Click);
             // 
-            // 關貿ToolStripMenuItem
+            // 金大新ToolStripMenuItem
             // 
-            this.關貿ToolStripMenuItem.Name = "關貿ToolStripMenuItem";
-            this.關貿ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.關貿ToolStripMenuItem.Text = "關貿";
-            this.關貿ToolStripMenuItem.Click += new System.EventHandler(this.關貿ToolStripMenuItem_Click);
+            this.金大新ToolStripMenuItem.Name = "金大新ToolStripMenuItem";
+            this.金大新ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.金大新ToolStripMenuItem.Text = "金大(新)";
+            this.金大新ToolStripMenuItem.Click += new System.EventHandler(this.金大新ToolStripMenuItem_Click);
             // 
             // 進銷存
             // 
@@ -312,6 +321,7 @@
         private System.Windows.Forms.ToolStripMenuItem 還原ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 金大ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 關貿ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 金大新ToolStripMenuItem;
     }
 }
 

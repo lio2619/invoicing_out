@@ -151,6 +151,12 @@
     <Compile Include="form\金大.Designer.cs">
       <DependentUpon>金大.cs</DependentUpon>
     </Compile>
+    <Compile Include="form\金大新.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="form\金大新.Designer.cs">
+      <DependentUpon>金大新.cs</DependentUpon>
+    </Compile>
     <Compile Include="form\關貿.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="form\金大.resx">
       <DependentUpon>金大.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="form\金大新.resx">
+      <DependentUpon>金大新.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="form\關貿.resx">
       <DependentUpon>關貿.cs</DependentUpon>

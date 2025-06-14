@@ -372,5 +372,20 @@ namespace Invoicing
             form2.MdiParent = this;
             form2.Show();
         }
+
+        private void 金大新ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            金大新 form2 = new 金大新();
+            foreach (Form form in this.MdiChildren)
+            {
+                if (form.Name == form2.Name)
+                {
+                    form.Focus();
+                    return;
+                }
+            }
+            form2.MdiParent = this;
+            form2.Show();
+        }
     }
 }
